@@ -1,3 +1,7 @@
+use bevy::app::App;
+
 fn main() {
-   println!("Hello, world!");
+    App::new()
+        .add_system(hello_world)
+        .run();
 }
