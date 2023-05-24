@@ -1,0 +1,23 @@
+os: linux
+dist: focal
+language: rust
+cache: cargo
+
+script:
+- cargo build --release
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Ishaaq Ollite"
+  - git config --local user.email "admin@eshark.tk"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+
+deploy:
+  provider: releases
+  api_key:
+    secure: MHWsk0yjtMCin3bslCxqAWkbsH15U33jxYrLELyalorR6aauVxyaPT3mMTjjWGahK1ub5h+0lSfu5K41tCTjCCOiPep+FdqROe07jvCsVQ09i4vYIq7QbVbpLHm2lc9aRWJU+YwAbOeQFIy/VQjp6xh/uxva0+BaK94v4+7h+RWrAFFiRoE2YAIimIiLfgnK4qsW+dlHGt4URTlJc6lFJyDPZAlrPLvi8EUt7J3hSKf2LuvkLxvgehR6pxoiP0pZ2gUClLrJhqm6aEUVzwmolC5sHYdyND1P38MqAdw/8cVakUlH7EpdanQCTv0UaC0nqghBVt7mpvkAFiOH4c2n1Su7WVtAZ8N/3sItRdzDIF6GmRD+UCWKb//fXyUq+TH8AU/edyF79c8tUZDss4dBE2VKelCkZt1ZRCFlxxhLPot5K4yDuAymTQ/ITecEPks/dlxxGPXtNchJ8dfG8cayLgaVWh5d9Aoei8Ot+hfPocdJtd0747OTatuZWxinOijI2/gc7H+2Ql54PD2QzCjdwNsAXwNDo9C+mti/15EeG18uaLUVWAGJIHAMg47Gi2Z2wePb56tOK9Fj/xk7sE13hnxSGIOBhvE/12jQM8gavn7DVsRY+OeF1I1Z4sAjUDHrdUNa7THdPwrvP/UQtFUk2ZqgksAzqGuyUr3be/zxp28=
+  file: target/target/eshark-rpg.exe
+  on:
+    repo: ESHARK22/eshark-rpg
+  skip_cleanup: 'true'
