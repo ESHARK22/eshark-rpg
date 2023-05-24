@@ -28,4 +28,4 @@ deploy:
     - ./target/x86_64-pc-windows-gnu/release/eshark-rpg.exe
   on:
     repo: ESHARK22/eshark-rpg
-  skip_cleanup: 'true'
+
