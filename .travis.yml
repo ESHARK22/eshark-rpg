@@ -3,23 +3,23 @@ dist: focal
 language: rust
 cache: cargo
 
+
+# Script to build the project
 script:
   - rustup target add x86_64-pc-windows-gnu
   - cargo build --target x86_64-pc-windows-gnu --release
-  - ls
-  - ls target
-  - ls target/release
 
 
-
+# Runs before uploading the build
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Ishaaq Ollite"
   - git config --local user.email "admin@eshark.tk"
   - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y/%m/%d_%H-%M-%S_')-$(git log --format=%h -1)}
   - git tag $TRAVIS_TAG
-  - ls ./target/x86_64-pc-windows-gnu/*
 
+
+# Uploads the build to GitHub
 deploy:
   provider: releases
   api_key:
