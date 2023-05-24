@@ -22,7 +22,7 @@ before_deploy:
 # Uploads the build to GitHub
 deploy:
   provider: releases
-  api_key:
+  token:
     secure: MHWsk0yjtMCin3bslCxqAWkbsH15U33jxYrLELyalorR6aauVxyaPT3mMTjjWGahK1ub5h+0lSfu5K41tCTjCCOiPep+FdqROe07jvCsVQ09i4vYIq7QbVbpLHm2lc9aRWJU+YwAbOeQFIy/VQjp6xh/uxva0+BaK94v4+7h+RWrAFFiRoE2YAIimIiLfgnK4qsW+dlHGt4URTlJc6lFJyDPZAlrPLvi8EUt7J3hSKf2LuvkLxvgehR6pxoiP0pZ2gUClLrJhqm6aEUVzwmolC5sHYdyND1P38MqAdw/8cVakUlH7EpdanQCTv0UaC0nqghBVt7mpvkAFiOH4c2n1Su7WVtAZ8N/3sItRdzDIF6GmRD+UCWKb//fXyUq+TH8AU/edyF79c8tUZDss4dBE2VKelCkZt1ZRCFlxxhLPot5K4yDuAymTQ/ITecEPks/dlxxGPXtNchJ8dfG8cayLgaVWh5d9Aoei8Ot+hfPocdJtd0747OTatuZWxinOijI2/gc7H+2Ql54PD2QzCjdwNsAXwNDo9C+mti/15EeG18uaLUVWAGJIHAMg47Gi2Z2wePb56tOK9Fj/xk7sE13hnxSGIOBhvE/12jQM8gavn7DVsRY+OeF1I1Z4sAjUDHrdUNa7THdPwrvP/UQtFUk2ZqgksAzqGuyUr3be/zxp28=
   file: 
     - ./target/x86_64-pc-windows-gnu/release/eshark-rpg.exe
