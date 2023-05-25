@@ -1,68 +1,55 @@
-//! Renders an animated sprite by loading all animation frames from a single image (a sprite sheet)
-//! into a texture atlas, and changing the displayed image periodically.
+//! Shows how to render simple primitive shapes with a single color.
 
-use bevy::prelude::*;
+use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
 
 fn main() {
-    print!("Hello, world!");
     App::new()
-        .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest())) // prevents blurry sprites
+        .add_plugins(DefaultPlugins)
         .add_startup_system(setup)
-        .add_system(animate_sprite)
         .run();
-}
-
-#[derive(Component)]
-struct AnimationIndices {
-    first: usize,
-    last: usize,
-}
-
-#[derive(Component, Deref, DerefMut)]
-struct AnimationTimer(Timer);
-
-fn animate_sprite(
-    time: Res<Time>,
-    mut query: Query<(
-        &AnimationIndices,
-        &mut AnimationTimer,
-        &mut TextureAtlasSprite,
-    )>,
-) {
-    print!("Hello, world 2 !");
-    for (indices, mut timer, mut sprite) in &mut query {
-        timer.tick(time.delta());
-        if timer.just_finished() {
-            println!("sprite.index: {}", sprite.index);
-            sprite.index = if sprite.index == indices.last {
-                indices.first
-            } else {
-                sprite.index + 1
-            };
-        }
-    }
 }
 
 fn setup(
     mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    let texture_handle = asset_server.load("RPGMCharacter_v1.0/pngs/up_idle.png");
-    let texture_atlas =
-        TextureAtlas::from_grid(texture_handle, Vec2::new(64.0, 64.0), 4, 2, None, None);
-    let texture_atlas_handle = texture_atlases.add(texture_atlas);
-    // Use only the subset of sprites in the sheet that make up the run animation
-    let animation_indices = AnimationIndices { first: 1, last: 6 };
     commands.spawn(Camera2dBundle::default());
-    commands.spawn((
-        SpriteSheetBundle {
-            texture_atlas: texture_atlas_handle,
-            sprite: TextureAtlasSprite::new(animation_indices.first),
-            transform: Transform::from_scale(Vec3::splat(6.0)),
+
+    // Circle
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::Circle::new(50.).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::PURPLE)),
+        transform: Transform::from_translation(Vec3::new(-150., 0., 0.)),
+        ..default()
+    });
+
+    // Rectangle
+    commands.spawn(SpriteBundle {
+        sprite: Sprite {
+            color: Color::rgb(0.25, 0.25, 0.75),
+            custom_size: Some(Vec2::new(50.0, 100.0)),
             ..default()
         },
-        animation_indices,
-        AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
-    ));
+        transform: Transform::from_translation(Vec3::new(-50., 0., 0.)),
+        ..default()
+    });
+
+    // Quad
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes
+            .add(shape::Quad::new(Vec2::new(50., 100.)).into())
+            .into(),
+        material: materials.add(ColorMaterial::from(Color::LIME_GREEN)),
+        transform: Transform::from_translation(Vec3::new(50., 0., 0.)),
+        ..default()
+    });
+
+    // Hexagon
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::TURQUOISE)),
+        transform: Transform::from_translation(Vec3::new(150., 0., 0.)),
+        ..default()
+    });
 }
