@@ -1,4 +1,5 @@
-<!-- use bevy::app::App;
+/*
+use bevy::app::App;
 use bevy::ecs::component::Component;
 use bevy::ecs::system::{Commands, Query};
 use bevy::ecs::query::With;
@@ -34,8 +35,8 @@ fn main() {
         .add_system(greet_people)
         .run();
 }
- -->
 
+*/
 //! Displays a single [`Sprite`], created from an image.
 
 use bevy::prelude::*;
