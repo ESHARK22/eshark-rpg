@@ -2,7 +2,7 @@ use bevy::app::App;
 use bevy::ecs::component::Component;
 use bevy::ecs::system::{Commands, Query};
 use bevy::ecs::query::With;
-
+use bevy::prelude::*;
 
 fn hello_world() {
     println!("Hello World!");
