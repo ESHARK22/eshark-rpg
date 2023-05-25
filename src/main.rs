@@ -28,6 +28,7 @@ fn greet_people(query: Query<&Name, With<Person>>) {
 
 fn main() {
     App::new()
+        .add_plugins(DefaultPlugins)
         .add_startup_system(add_people)
         .add_system(hello_world)
         .add_system(greet_people)
