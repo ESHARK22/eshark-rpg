@@ -45,7 +45,7 @@ fn setup(
     asset_server: Res<AssetServer>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    let texture_handle = asset_server.load("assets/RPGMCharacter_v1.0/pngs/up_idle.png");
+    let texture_handle = asset_server.load("RPGMCharacter_v1.0/pngs/up_idle.png");
     let texture_atlas =
         TextureAtlas::from_grid(texture_handle, Vec2::new(64.0, 64.0), 4, 2, None, None);
     let texture_atlas_handle = texture_atlases.add(texture_atlas);
