@@ -4,6 +4,7 @@
 use bevy::prelude::*;
 
 fn main() {
+    print!("Hello, world!");
     App::new()
         .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest())) // prevents blurry sprites
         .add_startup_system(setup)
@@ -28,9 +29,11 @@ fn animate_sprite(
         &mut TextureAtlasSprite,
     )>,
 ) {
+    print!("Hello, world 2 !");
     for (indices, mut timer, mut sprite) in &mut query {
         timer.tick(time.delta());
         if timer.just_finished() {
+            println!("sprite.index: {}", sprite.index);
             sprite.index = if sprite.index == indices.last {
                 indices.first
             } else {
